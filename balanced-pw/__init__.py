@@ -4,7 +4,6 @@ import diceware
 import random
 from numpy import *
 
-# NOTE use "quotes" around inputs when running this in python2
 
 keyboard = {
     "1": (-5, 2),
