@@ -46,6 +46,13 @@ keyboard = {
 }
 
 
+def get_diceware_pass(num_passwords):
+    generated_passwords = []
+    while len(generated_passwords) < num_passwords:
+        diceware_pass = diceware.get_passphrase().lower()
+        generated_passwords.append(diceware_pass)
+    return "\n\n".join(generated_passwords)
+
 def get_random_words(text, num_words=5):
     generated_words = []
     while len(generated_words) < num_words:
@@ -85,8 +92,9 @@ if __name__ == '__main__':
 
     for i in range(1, 5):
         all_scores = []
-        for x in range(1, 1000):
-            word = get_random_words(text, 1)
+        for x in range(1, 100):  # generate and score each password
+            # word = get_random_words(text, 1)
+            word = diceware.get_passphrase().lower()
             scores = get_scores(word)
             score = calc_offset(scores)
             all_scores.append((word, score))
@@ -100,3 +108,5 @@ if __name__ == '__main__':
             werds.append(bal[0])
 
         print(" ".join(werds))
+
+diceware.get_passphrase()
