@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Literature
-permalink: /litreview/
+permalink: litreview/
 ---
 
 ## Studies in Password Creation and Password Cracking
