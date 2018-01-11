@@ -46,9 +46,6 @@ The execution of the program (currently) is as follows:
 	* Attack the passphrases (not hashes) using other methods
 	* Attempt the same methods with other hash types/complexities/lengths if timeframes and hardware usage costs permit
 
-Project [timeline](/timeline/)
-
-Please check out [Literature Review](/litreview/) or [Bibliography](/biblio) for some analysis into what I'm reading to support my work.
 
 
 v1.0

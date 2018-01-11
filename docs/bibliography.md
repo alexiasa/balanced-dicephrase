@@ -17,12 +17,4 @@ P.G. Kelley et al. (2014) introduce the process they developed for calculating t
 
 
 
-
-
-
-
-
-View [Literature Review](/litreview/) for a more detailed analysis of these papers.
-
-
 v1.0

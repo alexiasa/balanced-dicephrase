@@ -17,7 +17,5 @@ P.G. Kelley et al. (2014) introduce the process they developed for calculating t
 There are many more studies that have been conducted on password habits, password cracking methods, and novel authentication approaches. Humans are naturally lacking in the areas of randomness. Additionally, humans simply cannot be expected to commit 150 or more unique, strong passwords to memory. In the worst case, users reuse the same password across every account. In the best case, they use strong, random passwords unique to each account in their control. The papers featured serve to bridge the gap between predictability in human password construction and the analysis of algorithms and password-cracking methodologies.
 
 
-View [Bibliography](/biblio/) page for brief summary info and sources.
-
 
 v1.0
