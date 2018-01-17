@@ -1,6 +1,7 @@
 import os.path, math
 import re
 import diceware
+import requests
 import random
 from numpy import *
 
@@ -46,6 +47,16 @@ keyboard = {
 }
 
 
+def get_word_list(list_name):
+
+    if list_name == 'eff':
+        word_list = requests.get('https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt')
+        return word_list
+    else:
+        word_list = '/usr/share/dict/web2'  # local word list
+        return word_list
+
+
 def get_random_words(text, num_words=5):
     generated_words = []
     while len(generated_words) < num_words:
@@ -79,7 +90,7 @@ def calc_offset(scores):
 
 if __name__ == '__main__':
 
-    dictionary = '/usr/share/dict/web2'
+    dictionary = get_word_list('eff')
     text = open(dictionary, 'r').read().lower().splitlines()
     text = filter_length(text, 5, 7)
 
