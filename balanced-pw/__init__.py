@@ -2,7 +2,9 @@ import os.path, math
 import re
 import diceware
 import random
-from numpy import *
+import argparse
+# from numpy import *
+from diceware import *
 
 
 keyboard = {
@@ -42,7 +44,8 @@ keyboard = {
     "b": (-1, -1),
     "n": (1, -1),
     "m": (2, -1),
-    " ": (0, 0)
+    " ": (0, 0),
+    "-": (6, 2)
 }
 
 
@@ -52,6 +55,7 @@ def get_diceware_pass(num_passwords):
         diceware_pass = diceware.get_passphrase().lower()
         generated_passwords.append(diceware_pass)
     return "\n\n".join(generated_passwords)
+
 
 def get_random_words(text, num_words=5):
     generated_words = []
@@ -65,19 +69,27 @@ def filter_length(input, min_length, max_length):
     return list([x for x in input if min_length <= len(x) <= max_length])
 
 
-def get_scores(words):
-    scores = []
+def get_scores(passphrase):
+    initial_phrase_scores = []
+    for word in passphrase:
+        initial_phrase_scores.append(get_word_scores(word))
+    return initial_phrase_scores
+
+
+'''def get_word_scores(words):
+    word_score = []
     for word in words:
-        scores.append(get_word_scores(word))
-    return scores
+        for letter in word:
+            word_score.append(keyboard[letter])
+    return sum(word_score)'''
 
 
 def get_word_scores(words):
-    scores = []
+    word_score = []
     for word in words:
         for letter in word:
-            scores.append(keyboard[letter])
-    return scores
+            word_score.append(sum(keyboard[letter]))
+    return sum(word_score)
 
 
 def calc_offset(scores):
@@ -86,27 +98,29 @@ def calc_offset(scores):
 
 if __name__ == '__main__':
 
-    dictionary = '/usr/share/dict/web2'
-    text = open(dictionary, 'r').read().lower().splitlines()
-    text = filter_length(text, 5, 7)
-
-    for i in range(1, 5):
+    # dictionary = '/usr/share/dict/web2'
+    # text = open(dictionary, 'r').read().lower().splitlines()
+    # text = filter_length(text, 5, 7)
+    for i in range(1, 4):
         all_scores = []
-        for x in range(1, 100):  # generate and score each password
+        for x in range(1, 100):  # generate and score each passphrase
             # word = get_random_words(text, 1)
-            word = diceware.get_passphrase().lower()
-            scores = get_scores(word)
-            score = calc_offset(scores)
+            # diceware.main(args=['--caps'])
+            # todo these will be CLI options or something eventually. start with basic input.
+            diceware_opts = handle_options(['--no-caps', '-n 6', '-d -'])
+            word = diceware.get_passphrase(diceware_opts)  # .lower()
+            calculated_word_scores = get_scores(word)
+            score = calc_offset(calculated_word_scores)
             all_scores.append((word, score))
 
         sorted_scores = sorted(all_scores, key=lambda x: abs(x[1]), reverse=True)
 
         balanced = sorted_scores[-4:]
 
-        werds = []
+        balanced_phrases = []
         for bal in balanced:
-            werds.append(bal[0])
+            balanced_phrases.append(bal[0] + "\n")
 
-        print(" ".join(werds))
+        print(" ".join(balanced_phrases))
 
-diceware.get_passphrase()
+# diceware.get_passphrase()
