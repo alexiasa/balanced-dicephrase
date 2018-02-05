@@ -131,7 +131,6 @@ def get_options():
 
     # ''.join(options)
 
-    print(options)
     return options
 
 
