@@ -1,5 +1,6 @@
 import os.path, math
 import re
+from re import match
 import diceware
 import random
 import argparse
@@ -45,7 +46,9 @@ keyboard = {
     "n": (1, -1),
     "m": (2, -1),
     " ": (0, 0),
-    "-": (6, 2)
+    "-": (6, 2),
+    ",": (3, -1),
+    ".": (4, -1)
 }
 
 
@@ -101,18 +104,34 @@ def get_options():
     Get passphrase options from the user as input
     :return: the options as a list of strings to be passed to diceware's handle_options function
     """
-    options = ['--no-caps', ]
+    options = ['--no-caps']
+    default_options = ['--no-caps', '-n 4', '-d .']
 
-    # todo input handling
+    num_words_in_phrase = str(input("Select # of words in the passphrase. Please enter a number between 2 and 9.\n"))
 
-    num_words_in_phrase = input("Select # of words in the passphrase. Please enter a number greater than 2.")
-    options += '-n ' + num_words_in_phrase
+    if not re.match("^[2-9]+", num_words_in_phrase):
+        print("Not a valid selection. Default settings will be used.")
+        return default_options
 
-    delimiter = input("Choose a delimiter ( - , . / \ )")
-    options += '-d ' + delimiter
+    num_words_in_phrase = '-n ' + num_words_in_phrase
+    options.append(num_words_in_phrase)
 
-    print("Passphrases will be printed in lowercase using your choice of delimiter between words.")
+    delimiter = str(input("Choose a delimiter ( - , . )\n"))
 
+    if not re.match("[-,.]", delimiter):
+        print("Not a valid selection. Default settings will be used")
+        return default_options
+
+    delimiter = '-d ' + delimiter
+
+    options.append(delimiter)
+
+    print("Passphrases will be printed in lowercase using your choice of delimiter between words.\n"
+          "The resulting phrases scored as the most balanced over 3 sets of 100 generating and scoring iterations.")
+
+    # ''.join(options)
+
+    print(options)
     return options
 
 
@@ -121,17 +140,14 @@ if __name__ == '__main__':
     # dictionary = '/usr/share/dict/web2'
     # text = open(dictionary, 'r').read().lower().splitlines()
     # text = filter_length(text, 5, 7)
+
+    diceware_opts = get_options()
+
     for i in range(1, 4):
         all_scores = []
         for x in range(1, 100):  # generate and score each passphrase
-            # word = get_random_words(text, 1)
-            # diceware.main(args=['--caps'])
-            # keep phrases hardcoded as no-caps to prevent breaking the balance calculations
 
-
-            diceware_opts = handle_options(['--no-caps', '-n 6', '-d -'])
-
-            word = diceware.get_passphrase(diceware_opts)  # .lower()
+            word = diceware.get_passphrase(handle_options(diceware_opts))
 
             calculated_word_scores = get_scores(word)
             score = calc_offset(calculated_word_scores)
@@ -148,3 +164,4 @@ if __name__ == '__main__':
         print(" ".join(balanced_phrases))
 
 # diceware.get_passphrase()
+
