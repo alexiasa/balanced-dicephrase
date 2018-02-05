@@ -96,12 +96,14 @@ def calc_offset(scores):
     return sum(scores)
 
 
-def set_options():
+def get_options():
     """
     Get passphrase options from the user as input
     :return: the options as a list of strings to be passed to diceware's handle_options function
     """
     options = ['--no-caps', ]
+
+    # todo input handling
 
     num_words_in_phrase = input("Select # of words in the passphrase. Please enter a number greater than 2.")
     options += '-n ' + num_words_in_phrase
@@ -114,7 +116,6 @@ def set_options():
     return options
 
 
-
 if __name__ == '__main__':
 
     # dictionary = '/usr/share/dict/web2'
@@ -125,10 +126,9 @@ if __name__ == '__main__':
         for x in range(1, 100):  # generate and score each passphrase
             # word = get_random_words(text, 1)
             # diceware.main(args=['--caps'])
-            # todo include length options for the purposes of the hashcat experiment
-            # todo break this out into a function
-
             # keep phrases hardcoded as no-caps to prevent breaking the balance calculations
+
+
             diceware_opts = handle_options(['--no-caps', '-n 6', '-d -'])
 
             word = diceware.get_passphrase(diceware_opts)  # .lower()
