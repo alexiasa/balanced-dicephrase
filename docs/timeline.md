@@ -11,7 +11,7 @@ Week 2 | AWS educate account created. ci and codebase tweaks completed.
 Week 3 | diceware integration completed.
 Week 4 | user options completed.
 Week 5 | local test environment prototyped prior to EC2 stuff.
-Week 6 | cloud test environment built. automation with ansible/scripting in place.
+Week 6 | cloud test environment built.
 Week 7 | test cases written. adjustments made to test environment/code as necessary.
 Week 8 | testing completed.
 Week 9 | test results documented and analyzed. additional testing done if necessary.
