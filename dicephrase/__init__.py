@@ -105,13 +105,13 @@ def get_options():
     :return: the options as a list of strings to be passed to diceware's handle_options function
     """
     options = ['--no-caps']
-    default_options = ['--no-caps', '-n 4', '-d .']
+    # default_options = ['--no-caps', '-n 4', '-d .']
 
     num_words_in_phrase = str(input("Select # of words in the passphrase. Please enter a number between 2 and 9.\n"))
 
     if not re.match("^[2-9]+", num_words_in_phrase):
-        print("Not a valid selection. Default settings will be used.")
-        return default_options
+        print("Not a valid selection. Using 4 words.")
+        num_words_in_phrase = '4'
 
     num_words_in_phrase = '-n ' + num_words_in_phrase
     options.append(num_words_in_phrase)
@@ -119,8 +119,8 @@ def get_options():
     delimiter = str(input("Choose a delimiter ( - , . )\n"))
 
     if not re.match("[-,.]", delimiter):
-        print("Not a valid selection. Default settings will be used")
-        return default_options
+        print("Not a valid selection. Using period as delimiter.")
+        delimiter = '.'
 
     delimiter = '-d ' + delimiter
 
