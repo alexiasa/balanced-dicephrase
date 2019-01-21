@@ -1,0 +1,1 @@
+./hashcat64.bin -a 1 -m 900 --opencl-platforms=1 c600a9a5e9314a06662676dae2cc6ee4 all.dict rockyou.dict -o dw_solved --outfile-format=2
